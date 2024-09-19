@@ -20,7 +20,7 @@ public class TestList {
     // DONE -- TODO also try with a LinkedList - does it make any difference?
 
     // LinkedList for testing
-    // list = new LinkedList<>();
+   // list = new LinkedList<>();
   }
 
   @After

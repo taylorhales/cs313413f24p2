@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +20,14 @@ public class TestIterator {
 
   @Before
   public void setUp() throws Exception {
+
+    // Array list to test
     list = new ArrayList<Integer>();
-    // TODO also try with a LinkedList - does it make any difference?
+    // DONE -- TODO also try with a LinkedList - does it make any difference?
+
+    // LinkedList to test
+    // list = new LinkedList<>();
+
   }
 
   @After
@@ -44,21 +51,22 @@ public class TestIterator {
     list.add(77);
     list.add(66);
     final var i = list.iterator();
+
     assertTrue(i.hasNext());
-    assertEquals(33, i.next().intValue());
-    // TODO fix the expected values in the assertions below
+    assertEquals(33, i.next().intValue()); // 1st element is 33
+    // DONE -- TODO fix the expected values in the assertions below
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(77, i.next().intValue()); // 2nd element is 77
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(44, i.next().intValue()); // 3rd element is 44
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(77, i.next().intValue()); // 4th element is 77
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(55, i.next().intValue()); // 5th element is 55
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(77, i.next().intValue()); // 6th element is 77
     assertTrue(i.hasNext());
-    assertEquals(0, i.next().intValue());
+    assertEquals(66, i.next().intValue()); // 7th element is 66
     assertFalse(i.hasNext());
   }
 
@@ -74,13 +82,13 @@ public class TestIterator {
     final var i = list.iterator();
     while (i.hasNext()) {
       if (i.next() == 77) {
-        i.remove(); // TODO what happens if you use list.remove(Integer.valueOf(77))?
+       i.remove(); // DONE -- TODO what happens if you use list.remove(Integer.valueOf(77))?
       }
     }
-    // TODO using assertEquals and List.of, express which values are left in the list
+    // DONE -- TODO using assertEquals and List.of, express which values are left in the list
     // See TestList.java for examples of how to use List.of; also see the Java List
     // interface for more information
-    fail("Not yet implemented"); // remove this line when done
+    assertEquals(List.of(33, 44, 55, 66), list); // values left in the list after removal
   }
 
   @Test
@@ -94,9 +102,19 @@ public class TestIterator {
     list.add(66);
     double sum = 0;
     int n = 0;
-    // TODO use an iterator and a while loop to compute the average (mean) of the values
+    // DONE -- TODO use an iterator and a while loop to compute the average (mean) of the values
     // (defined as the sum of the items divided by the number of items)
     // testNonempty shows how to use an iterator; use i.hasNext() in the while loop condition
+
+    // iterator for the list
+    final var i = list.iterator();
+
+    // iterate through the list & calculate the sum & number of items
+    while (i.hasNext()){
+      sum += i.next(); // add current element to the sum
+      n++; // increment the count
+    }
+
     assertEquals(61.3, sum / n, 0.1);
     assertEquals(7, n);
   }
