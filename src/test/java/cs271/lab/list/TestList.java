@@ -15,8 +15,12 @@ public class TestList {
 
   @Before
   public void setUp() throws Exception {
+    // Array list for testing
     list = new ArrayList<Integer>();
-    // TODO also try with a LinkedList - does it make any difference?
+    // DONE -- TODO also try with a LinkedList - does it make any difference?
+
+    // LinkedList for testing
+    // list = new LinkedList<>();
   }
 
   @After
@@ -158,9 +162,13 @@ public class TestList {
     list.add(55);
     list.add(77);
     list.add(66);
-    // TODO in a single statement using removeAll and List.of,
+    // DONE -- TODO in a single statement using removeAll and List.of,
     // remove items from the list to make the following assertions pass
     // (without touching the assertions themselves)
+
+    // removeAll is used to remove 33, 44, 55, & 66
+    list.removeAll(List.of(33, 44, 55, 66));
+
     assertEquals(3, list.size());
     assertEquals(List.of(77, 77, 77), list);
   }
@@ -174,9 +182,13 @@ public class TestList {
     list.add(55);
     list.add(77);
     list.add(66);
-    // TODO in a single statement using retainAll and List.of,
+    // DONE -- TODO in a single statement using retainAll and List.of,
     // remove items from the list to make the following assertions pass
     // (without touching the assertions themselves)
+
+    // only keep value 77 in the list, remove the rest
+    list.retainAll(List.of(77));
+
     assertEquals(3, list.size());
     assertEquals(List.of(77, 77, 77), list);
   }
@@ -190,9 +202,15 @@ public class TestList {
     list.add(55);
     list.add(77);
     list.add(66);
-    // TODO use the set method to change specific elements in the list
+    // DONE -- TODO use the set method to change specific elements in the list
     // such that the following assertions pass
     // (without touching the assertions themselves)
+
+    // modify specific elements in the list
+    list.set(1, 99); // at index 1, replaces 77 with 99
+    list.set(3, 99); // at index 3, replaces 77 with 99
+    list.set(5, 99); // at index 5, replaces 5 with 99
+
     assertEquals(7, list.size());
     assertEquals(33, list.get(0).intValue());
     assertEquals(99, list.get(1).intValue());
@@ -212,8 +230,11 @@ public class TestList {
     list.add(55);
     list.add(77);
     list.add(66);
-    // TODO fix the arguments in the subList method so that the assertion
+    // DONE -- TODO fix the arguments in the subList method so that the assertion
     // passes
-    assertEquals(List.of(44, 77, 55), list.subList(0, 0));
+
+    // update subList to 2 to 5
+    // extract elements starting at index 2 up to index 5
+    assertEquals(List.of(44, 77, 55), list.subList(2, 5));
   }
 }
