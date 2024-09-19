@@ -23,7 +23,7 @@ public class TestIterator {
 
     // Array list to test
     list = new ArrayList<Integer>();
-    // DONE -- TODO also try with a LinkedList - does it make any difference?
+    // DONE - TODO also try with a LinkedList - does it make any difference?
 
     // LinkedList to test
     // list = new LinkedList<>();
