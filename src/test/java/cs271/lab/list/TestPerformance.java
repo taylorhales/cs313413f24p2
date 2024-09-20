@@ -14,7 +14,7 @@ public class TestPerformance {
   // running time is in the tens of seconds)
   // TODO (optional) refactor to DRY
   // which of the two lists performs better as the size increases?
-  private final int SIZE = 10;
+  private final int[] SIZE = {10, 100, 1000, 10000, 100000};
 
   // TODO choose this value in such a way that you can observe an actual effect
   // for increasing problem sizes
@@ -26,12 +26,7 @@ public class TestPerformance {
 
   @Before
   public void setUp() throws Exception {
-    arrayList = new ArrayList<Integer>(SIZE);
-    linkedList = new LinkedList<Integer>();
-    for (var i = 0; i < SIZE; i++) {
-      arrayList.add(i);
-      linkedList.add(i);
-    }
+
   }
 
   @After
@@ -40,35 +35,56 @@ public class TestPerformance {
     linkedList = null;
   }
 
-  @Test
-  public void testLinkedListAddRemove() {
-    for (var r = 0; r < REPS; r++) {
-      linkedList.add(0, 77);
-      linkedList.remove(0);
+  // method to add & remove for ArrayList & LinkedList
+  private void testAddRemove(List<Integer> list, int size, String listType) {
+    // initialize list with 'size' elements
+    for (var i = 0; i < size; i++) {
+      list.add(i);
     }
+
+    long start = System.currentTimeMillis(); // starts timer
+
+    // add(0, 77) & remove(0) for REPS times
+    for (var r = 0; r < REPS; r++) {
+      list.add(0, 77);
+      list.remove(0);
+    }
+
+    long end = System.currentTimeMillis(); // ends timer
+    System.out.println(listType + " add & remove for size " + size + " took " + (end - start) + " ms");
   }
 
-  @Test
-  public void testArrayListAddRemove() {
+  // method to test access for ArrayList & LinkedList
+  private void testAccess(List<Integer> list, int size, String listType) {
+    long sum = 0;
+    long start = System.currentTimeMillis(); // Start timer
+
+    // REPS times accessing list elements using modulo to simulate random access
     for (var r = 0; r < REPS; r++) {
-      arrayList.add(0, 77);
-      arrayList.remove(0);
+      sum += list.get(r % size);
     }
+
+    long end = System.currentTimeMillis(); // ends timer
+    System.out.println(listType + " access for size " + size + " took " + (end - start) + " ms, sum = " + sum);
   }
 
-  @Test
-  public void testLinkedListAccess() {
-    var sum = 0L;
-    for (var r = 0; r < REPS; r++) {
-      sum += linkedList.get(r % SIZE);
-    }
-  }
+  // test method for measuring performance
 
   @Test
-  public void testArrayListAccess() {
-    var sum = 0L;
-    for (var r = 0; r < REPS; r++) {
-      sum += arrayList.get(r % SIZE);
+  public void testPerformance() {
+    // Loop through each size
+    for (int size : SIZE) {
+      System.out.println("Testing size: " + size);
+
+      // Test ArrayList
+      arrayList = new ArrayList<>(size);
+      testAddRemove(arrayList, size, "ArrayList");
+      testAccess(arrayList, size, "ArrayList");
+
+      // Test LinkedList
+      linkedList = new LinkedList<>();
+      testAddRemove(linkedList, size, "LinkedList");
+      testAccess(linkedList, size, "LinkedList");
     }
   }
 }
